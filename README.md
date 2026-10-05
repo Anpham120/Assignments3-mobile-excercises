@@ -4,4 +4,4 @@ Bài 3: màn hình nhập thông tin sinh viên, kiểm tra dữ liệu và chuy
 
 - **Sinh viên:** Phạm Duy An
 - **MSSV:** BIT240002
-- **Video:** [Video bài 3](https://drive.google.com/file/d/1geOxNL8UcS2j5z7I2_gxjlLSS1DHuszQ/view?usp=sharing)
+- **Video:** [Video bài 3](https://drive.google.com/file/d/1F8_HqM5kM4_YgZZVJ1wGMKvqKTXmebeI/view?usp=sharing)
