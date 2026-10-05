@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { AlertDialog } from '@/components/AlertDialog';
 import { styles } from '@/styles/screen1';
 
 type BoxProps = {
@@ -74,6 +75,9 @@ export default function Screen1() {
   const [studentId, setStudentId] = useState('');
   // Chưa bấm "Click me" thì chưa báo lỗi; bấm rồi thì lỗi cập nhật ngay khi gõ
   const [submitted, setSubmitted] = useState(false);
+  // Nội dung hộp thoại giữ lại sau khi đóng để lúc mờ dần không bị trống
+  const [dialogMessages, setDialogMessages] = useState<string[]>([]);
+  const [dialogVisible, setDialogVisible] = useState(false);
 
   const errors: Errors = submitted ? validate(userName, studentId) : {};
 
@@ -87,10 +91,16 @@ export default function Screen1() {
 
   const handlePress = () => {
     setSubmitted(true);
-    const result = validate(userName, studentId);
-    if (result.userName || result.studentId) return;
-
     Keyboard.dismiss();
+    const result = validate(userName, studentId);
+    const messages = [result.userName, result.studentId].filter((m): m is string => !!m);
+    if (messages.length > 0) {
+      // Báo lỗi bằng hộp thoại, mỗi lỗi một dòng
+      setDialogMessages(messages);
+      setDialogVisible(true);
+      return;
+    }
+
     // Truyền họ tên và MSSV sang Screen 2 qua params
     router.push({
       pathname: '/screen2',
@@ -159,6 +169,13 @@ export default function Screen1() {
           </Pressable>
         </ScrollView>
       </KeyboardAvoidingView>
+
+      <AlertDialog
+        visible={dialogVisible}
+        title="Warning"
+        messages={dialogMessages}
+        onClose={() => setDialogVisible(false)}
+      />
     </SafeAreaView>
   );
 }
