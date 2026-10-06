@@ -61,10 +61,22 @@ function checkRequired(value: string, label: string) {
   return undefined;
 }
 
+// Định dạng MSSV: B hoa + 2 chữ cái a-z (hoa hoặc thường) + 2 số từ 22-26 + 4 chữ số 0-9 (vd: BCS231234, Bcs231234)
+const STUDENT_ID_PATTERN = /^B[A-Za-z]{2}2[2-6][0-9]{4}$/;
+
+function checkStudentId(value: string) {
+  const requiredError = checkRequired(value, 'Student ID');
+  if (requiredError) return requiredError;
+  if (!STUDENT_ID_PATTERN.test(value.trim())) {
+    return 'Student ID must be B + 2 letters + 22-26 + 4 digits (e.g. BCS231234)';
+  }
+  return undefined;
+}
+
 function validate(userName: string, studentId: string): Errors {
   return {
     userName: checkRequired(userName, 'Name'),
-    studentId: checkRequired(studentId, 'Student ID'),
+    studentId: checkStudentId(studentId),
   };
 }
 
