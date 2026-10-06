@@ -26,9 +26,10 @@ export function AlertDialog({ visible, title, messages, onClose }: AlertDialogPr
         <View style={styles.dialog}>
           <Text style={styles.title}>{title}</Text>
           {messages.map((message) => (
-            <Text key={message} style={styles.message}>
-              {message}
-            </Text>
+            <View key={message} style={styles.messageRow}>
+              <Text style={styles.bullet}>•</Text>
+              <Text style={styles.message}>{message}</Text>
+            </View>
           ))}
           <Pressable
             style={({ pressed }) => [styles.button, pressed && styles.pressed]}

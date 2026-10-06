@@ -62,14 +62,18 @@ function checkRequired(value: string, label: string) {
 }
 
 // Định dạng MSSV: B hoa + 2 chữ cái a-z (hoa hoặc thường) + 2 số từ 22-26 + 4 chữ số 0-9 (vd: BCS231234, Bcs231234)
-const STUDENT_ID_PATTERN = /^B[A-Za-z]{2}2[2-6][0-9]{4}$/;
-
+// Kiểm tra từng phần để báo đúng chỗ sai, dễ hiểu hơn một câu chung chung
 function checkStudentId(value: string) {
   const requiredError = checkRequired(value, 'Student ID');
   if (requiredError) return requiredError;
-  if (!STUDENT_ID_PATTERN.test(value.trim())) {
-    return 'Student ID must be B + 2 letters + 22-26 + 4 digits (e.g. BCS231234)';
+
+  const id = value.trim();
+  if (id.length !== 9) return `Student ID must have 9 characters, e.g. BCS231234 (you entered ${id.length})`;
+  if (!/^B[A-Za-z]{2}$/.test(id.slice(0, 3))) {
+    return 'Student ID: first 3 characters must be uppercase "B" + 2 letters a-z (e.g. BCS, Bcs)';
   }
+  if (!/^2[2-6]$/.test(id.slice(3, 5))) return 'Student ID: characters 4-5 must be a number from 22 to 26';
+  if (!/^[0-9]{4}$/.test(id.slice(5))) return 'Student ID: last 4 characters must be digits 0-9';
   return undefined;
 }
 

@@ -22,11 +22,23 @@ export const styles = StyleSheet.create({
     marginBottom: 2,
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#D32F2F',
+  },
+  // Mỗi lỗi một dòng: dấu chấm bên trái, chữ tự xuống dòng bên phải
+  messageRow: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  bullet: {
+    fontSize: 16,
+    lineHeight: 22,
+    color: '#D32F2F',
   },
   message: {
-    fontSize: 15,
-    color: '#333',
+    flex: 1,
+    fontSize: 16,
+    lineHeight: 22,
+    color: '#222',
   },
 
   // Nút OK cùng kiểu với nút "Click me"
